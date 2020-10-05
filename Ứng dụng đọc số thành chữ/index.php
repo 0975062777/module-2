@@ -10,57 +10,83 @@
 <body>
 
     <form method="post">
-
-        <input type="number" name="num" placeholder="Nhập số cần đọc">
-        <input type="submit" value="Đọc số">
-
+        <input type="text" name="read">
+        <input type="submit" value="submit">
     </form>
 
     <?php
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $number = $_POST["num"];
-        $num = str_split($number);
-        if ($number > 0 && $number < 20) {
+    function read_number($number)
+    {
+        $string = null;
+        $dictionary = array(
+            0   => "zero",
+            1   => "one",
+            2   => "two",
+            3   => "three",
+            4   => "four",
+            5   => "five",
+            6   => "six",
+            7   => "seven",
+            8   => "eight",
+            9   => "nine",
+            10  => "ten",
+            11  => "eleven",
+            12  => "twelve",
+            13  => "thirteen",
+            14  => "fourteen",
+            15  => "fifteen",
+            16  => "sixteen",
+            17  => "seventeen",
+            18  => "eighteen",
+            19  => "nineteen",
+            20  => "twenty",
+            30  => "thirty",
+            40  => "fourty",
+            50  => "fifty",
+            60  => "sixty",
+            70  => "seventy",
+            80  => "eighty",
+            90  => "ninety",
+            100 => "hundred"
+        );
+        if ($number < 0 || $number > 999) {
+            $string .= "Out of ability";
+        } else {
             switch ($number) {
-                case 1:
-                    echo "one";
+                case 0:
+                    $string = $dictionary[$number];
                     break;
-                case 2:
-                    echo "two";
+                case ($number < 21):
+                    $string = $dictionary[$number];
                     break;
-                case 3:
-                    echo "three";
+                case ($number < 100):
+                    $ten = (floor($number / 10)) * 10;
+                    $string = $dictionary[$ten];
+                    $one = $number % 10;
+                    if ($one) {
+                        $string .= " " . $dictionary[$one];
+                    }
                     break;
-                case 4:
-                    echo "four";
-                    break;
-                case 5:
-                    echo "file";
-                    break;
-                case 6:
-                    echo "six";
-                    break;
-                case 7:
-                    echo "seven";
-                    break;
-                case 8:
-                    echo "eight";
-                    break;
-                case 9:
-                    echo "night";
-                    break;
-            }
-        }
-        if ($number < 100) {
-            switch ($num[1]) {
-                case 2:
-                    echo "twenty " . $num[2];
+                case ($number >= 100):
+                    $hundred = floor($number / 100);
+                    $remain = ($number % 100);
+                    $ten = (floor($remain / 10)) * 10;
+                    $one = $remain % 10;
+                    $string = $dictionary[$hundred] . " " . $dictionary[100] . " ";
+                    if ($remain >= 10) {
+                        $string .= "and " . $dictionary[$ten] . " " . $dictionary[$one];
+                    } else {
+                        $string .= "and " . $dictionary[$one];
+                    }
                     break;
             }
         }
+        return $string;
     }
-
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $number = $_POST["read"];
+        echo read_number($number);
+    }
     ?>
 
 </body>

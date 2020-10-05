@@ -15,6 +15,7 @@
             <option value="rectangle">rectangle</option>
             <option value="square">square</option>
             <option value="isosceles">isosceles</option>
+            <option value="exit">exit</option>
         </select>
         <input type="submit" value="submit">
     </form>
@@ -49,6 +50,9 @@
                     }
                     echo "</tr>";
                 }
+            }
+            if ($chose == "exit") {
+                echo "";
             }
         }
         ?>
