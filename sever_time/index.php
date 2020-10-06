@@ -1,4 +1,3 @@
-<?php date_default_timezone_set('Asia/Ho_Chi_Minh') ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,6 +9,7 @@
 
 <body>
 
+    <?php date_default_timezone_set('Asia/Ho_Chi_Minh') ?>
     <h1>Bây giờ là: <?php echo date('d-y-m .h:m:s'); ?></h1>
 
 </body>
